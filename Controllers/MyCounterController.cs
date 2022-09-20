@@ -36,6 +36,7 @@ public class MyCounterController : ControllerBase
 
         var value = _numberToWords.Convert(_myCounter.value());
 
-        return ISL[value];
+        //return ISL[value] + "\n";
+        return value + "\n";
     }
 }

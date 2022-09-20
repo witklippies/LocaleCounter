@@ -15,8 +15,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IMyCounter, MyCounter>();
 
-// builder.Services.AddSingleton<INumberToWords, NumberToWordsLocal>();
-
 var optionsBuilder = new DbContextOptionsBuilder<LocalizationDBContext>();
 optionsBuilder.UseInMemoryDatabase("LocalCounter");
 var context = new LocalizationDBContext(optionsBuilder.Options); 

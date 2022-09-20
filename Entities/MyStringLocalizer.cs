@@ -1,18 +1,23 @@
 using System.Globalization;
 using Microsoft.Extensions.Localization;
 
+using LocaleCounter.Data;
+
 namespace LocaleCounter.Entities;
 
 public class MyStringLocalizer : IStringLocalizer
 {
-    public MyStringLocalizer()
+    private readonly LocalizationDBContext _context;
+
+    public MyStringLocalizer(LocalizationDBContext context)
     {
+        _context = context;
     }
 
     public IStringLocalizer WithCulture(CultureInfo culture)
     {
         CultureInfo.DefaultThreadCurrentCulture = culture;
-        return new MyStringLocalizer();
+        return new MyStringLocalizer(_context);
     }
 
     public LocalizedString this[string name]
@@ -36,11 +41,15 @@ public class MyStringLocalizer : IStringLocalizer
 
     public IEnumerable<LocalizedString> GetAllStrings(bool includeAncestorCultures)
     {
-        return new List<LocalizedString>();
+        return _context.Words
+                .Where(w => w.Culture.Name == CultureInfo.CurrentCulture.Name)
+                .Select(w => new LocalizedString(w.Key, w.Value, true));
     }
 
     private string GetString(string name)
     {
-        return CultureInfo.CurrentCulture.Name;
+        return _context.Words
+                .Where(w => w.Culture.Name == CultureInfo.CurrentCulture.Name)
+                .FirstOrDefault(w => w.Key == name)?.Value;
     }
 }

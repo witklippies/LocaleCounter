@@ -32,11 +32,7 @@ public class MyCounterController : ControllerBase
     [HttpGet("/value")]
     public string GetString()
     {
-        var ISL = new MyStringLocalizer();
-
         var value = _numberToWords.Convert(_myCounter.value());
-
-        //return ISL[value] + "\n";
         return value + "\n";
     }
 }

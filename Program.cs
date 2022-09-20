@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
 
 using LocaleCounter.Entities;
 using LocaleCounter.Data;
@@ -13,9 +14,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IMyCounter, MyCounter>();
+
 // builder.Services.AddSingleton<INumberToWords, NumberToWordsLocal>();
 
-var stringLocalizerFactory = new MyStringLocalizerFactory();
+var optionsBuilder = new DbContextOptionsBuilder<LocalizationDBContext>();
+optionsBuilder.UseInMemoryDatabase("LocalCounter");
+var context = new LocalizationDBContext(optionsBuilder.Options); 
+
+var stringLocalizerFactory = new MyStringLocalizerFactory(context);
 var stringLocalizer = stringLocalizerFactory.Create(null);
 
 builder.Services.AddSingleton<INumberToWords, NumberToWordsCulture>(x =>
@@ -23,8 +29,6 @@ builder.Services.AddSingleton<INumberToWords, NumberToWordsCulture>(x =>
     var numberToWordsCulture = new NumberToWordsCulture(stringLocalizer);
     return numberToWordsCulture;
 });
-
-//builder.Services.AddDbContext<LocalizationDBContext>(opt => opt.UseInMemoryDatabase("LocaleCouter"));
 
 var app = builder.Build();
 

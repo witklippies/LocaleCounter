@@ -8,9 +8,9 @@ public class MyStringLocalizerFactory : IStringLocalizerFactory
 {
     private readonly LocalizationDBContext _context;
 
-    public MyStringLocalizerFactory()
+    public MyStringLocalizerFactory(LocalizationDBContext context)
     {
-        _context = new LocalizationDBContext();
+        _context = context;
         _context.AddRange (
             new Culture
             {

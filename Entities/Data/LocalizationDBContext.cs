@@ -6,11 +6,16 @@ namespace LocaleCounter.Data;
 
 public class LocalizationDBContext : DbContext
 {
-    public DbSet<Culture> Cultures { get; set; }
-    public DbSet<Word> Words { get; set; }
+    public DbSet<Culture>? Cultures { get; set; }
+    public DbSet<Word>? Words { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+     public LocalizationDBContext(DbContextOptions<LocalizationDBContext> options)
+            : base(options)
     {
-        optionsBuilder.UseInMemoryDatabase("LocaleCounter");
     }
+
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+        // optionsBuilder.UseInMemoryDatabase("LocaleCounter");
+    // }
 }

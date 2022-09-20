@@ -15,27 +15,29 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IMyCounter, MyCounter>();
 // builder.Services.AddSingleton<INumberToWords, NumberToWordsLocal>();
 
-builder.Services.AddSingleton<INumberToWords, NumberToWordsLocalCulture>();
+builder.Services.AddSingleton<INumberToWords, NumberToWordsCulture>();
 
 //builder.Services.AddDbContext<LocalizationDBContext>(opt => opt.UseInMemoryDatabase("LocaleCouter"));
 
 var app = builder.Build();
 
-var supportedCultures = new List<CultureInfo> 
-    {
-        new CultureInfo("en-US"),
-        new CultureInfo("en-GB"),
-        new CultureInfo("af-ZA"),
-    };
+// ***** START OF LOCALIZATION SECTION *****
+var supportedCultures = new List<CultureInfo>
+{
+    new CultureInfo("af-ZA"),
+    new CultureInfo("fr-MA"),
+    new CultureInfo("ar-MA")
+};
 
-    var options = new RequestLocalizationOptions 
-    {
-        DefaultRequestCulture = new RequestCulture("en-ZA"),
-        SupportedCultures = supportedCultures,
+var options = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-ZA"),
+    SupportedCultures = supportedCultures,
     SupportedUICultures = supportedCultures
 };
 
 app.UseRequestLocalization(options);
+// ***** END OF LOCALIZATION SECTION *****
 
 if (app.Environment.IsDevelopment())
 {

@@ -9,7 +9,7 @@ public interface INumberToWords
 {
     string Convert(int i); 
 }
-class NumberToWordsLocal : INumberToWords
+class NumberToWords : INumberToWords
 {  
     private static string[] units = { "Zero", "One", "Two", "Three",  
     "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven",  
@@ -36,23 +36,23 @@ class NumberToWordsLocal : INumberToWords
         return ConvertInternal(i);
     }  
 }  
-class NumberToWordsLocalCulture  : NumberToWordsLocal
+
+// ***** Extend NumerToWords to include string localisation
+class NumberToWordsCulture  : NumberToWords
 {  
     private readonly IStringLocalizer _sl;
 
-    public NumberToWordsLocalCulture()
+    public NumberToWordsCulture()
     {
         var f = new MyStringLocalizerFactory();
         _sl = f.Create(null);
     }
-    public NumberToWordsLocalCulture(IStringLocalizer sl)
+    public NumberToWordsCulture(IStringLocalizer sl)
     {
         _sl = sl;
     }
     public override string Convert(int i)
     {  
-        Console.WriteLine("You are here");
-        var value = ConvertInternal(i);
-        return  _sl[value];
+        return _sl[ConvertInternal(i)];
     }  
 } 

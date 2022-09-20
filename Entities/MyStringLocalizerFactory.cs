@@ -21,6 +21,16 @@ public class MyStringLocalizerFactory : IStringLocalizerFactory
             {
                 Name = "af-ZA",
                 Words = new List<Word>() { new Word {Key = "Zero", Value = "Nul"}, { new Word {Key = "One", Value = "Een"} } }
+            },
+            new Culture
+            {
+                Name = "fr-MA",
+                Words = new List<Word>() { new Word {Key = "Zero", Value = "Zéro"}, { new Word {Key = "One", Value = "Un"} } }
+            },
+            new Culture
+            {
+                Name = "ar-MA",
+                Words = new List<Word>() { new Word {Key = "Zero", Value = "صفر"}, { new Word {Key = "One", Value = "واحد"} } }
             }
         );
         _context.SaveChanges();

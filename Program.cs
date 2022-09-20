@@ -15,7 +15,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IMyCounter, MyCounter>();
 // builder.Services.AddSingleton<INumberToWords, NumberToWordsLocal>();
 
-builder.Services.AddSingleton<INumberToWords, NumberToWordsCulture>();
+var stringLocalizerFactory = new MyStringLocalizerFactory();
+var stringLocalizer = stringLocalizerFactory.Create(null);
+
+builder.Services.AddSingleton<INumberToWords, NumberToWordsCulture>(x =>
+{
+    var numberToWordsCulture = new NumberToWordsCulture(stringLocalizer);
+    return numberToWordsCulture;
+});
 
 //builder.Services.AddDbContext<LocalizationDBContext>(opt => opt.UseInMemoryDatabase("LocaleCouter"));
 

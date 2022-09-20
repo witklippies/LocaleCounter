@@ -42,11 +42,6 @@ class NumberToWordsCulture  : NumberToWords
 {  
     private readonly IStringLocalizer _sl;
 
-    public NumberToWordsCulture()
-    {
-        var f = new MyStringLocalizerFactory();
-        _sl = f.Create(null);
-    }
     public NumberToWordsCulture(IStringLocalizer sl)
     {
         _sl = sl;

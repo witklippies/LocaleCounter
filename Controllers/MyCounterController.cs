@@ -10,12 +10,15 @@ public class MyCounterController : ControllerBase
 {
     private readonly ILogger<MyCounterController> _logger;
     private readonly IMyCounter _myCounter;
+    private readonly INumberToWords _numberToWords;
 
     public MyCounterController(ILogger<MyCounterController> logger,
-                IMyCounter myCounter)
+                IMyCounter myCounter,
+                INumberToWords numberToWords)
     {
         _logger = logger;
         _myCounter = myCounter;
+        _numberToWords = numberToWords;
     }
 
     // [HttpGet(Name = "GetCounter")]
@@ -29,6 +32,7 @@ public class MyCounterController : ControllerBase
     [HttpGet("/value")]
     public string GetString()
     {
-        return _myCounter.value();
+        var value = _numberToWords.Convert(_myCounter.value());
+        return value + "\n";
     }
 }

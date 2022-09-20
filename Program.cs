@@ -8,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IMyCounter, MyCounter>();
+builder.Services.AddSingleton<INumberToWords, NumberToWordsLocal>();
 
 var app = builder.Build();
 

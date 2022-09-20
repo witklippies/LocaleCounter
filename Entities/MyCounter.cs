@@ -3,12 +3,14 @@ namespace LocaleCounter.Entities;
 public interface IMyCounter
 {
     int count();
-    string value();
+
+    int value();
 }
 
 public class MyCounter : IMyCounter
 {
     private int _counter;
+
     public MyCounter()
     {
        _counter = 0; 
@@ -17,9 +19,8 @@ public class MyCounter : IMyCounter
     { 
         return ++_counter;
     }
-
-    public string value()
+    public int value()
     {
-        return NumberToWords.Convert(_counter);
+        return _counter;
     }
 }

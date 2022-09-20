@@ -1,15 +1,19 @@
 namespace LocaleCounter.Entities;
 
-class NumberToWords  
+public interface INumberToWords
+{
+    string Convert(int i); 
+}
+class NumberToWordsLocal  : INumberToWords
 {  
-    private static String[] units = { "Zero", "One", "Two", "Three",  
+    private static string[] units = { "Zero", "One", "Two", "Three",  
     "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven",  
     "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",  
     "Seventeen", "Eighteen", "Nineteen" };  
-    private static String[] tens = { "", "", "Twenty", "Thirty", "Forty",  
+    private static string[] tens = { "", "", "Twenty", "Thirty", "Forty",  
     "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };  
   
-    public static String Convert(int i)  
+    public string Convert(int i)  
     {  
         if (i < 20)  
         {  
